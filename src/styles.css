@@ -1,0 +1,156 @@
+:root {
+  --bg: #0f1115;
+  --card: #171a21;
+  --card-on: #143025;
+  --line: #262b35;
+  --text: #e8ecf1;
+  --muted: #8b96a5;
+  --accent: #34d399;
+  --inactive: #5b6473;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: env(safe-area-inset-top) 14px calc(24px + env(safe-area-inset-bottom));
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 18px 2px 12px;
+  background: var(--bg);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.sub {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+}
+
+.item:active {
+  transform: scale(0.985);
+}
+
+.item--on {
+  background: var(--card-on);
+  border-color: rgba(52, 211, 153, 0.45);
+}
+
+.thumb {
+  flex: 0 0 auto;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #0f1218;
+  display: grid;
+  place-items: center;
+}
+
+.thumb--on {
+  background: rgba(52, 211, 153, 0.12);
+}
+
+.thumb-svg {
+  width: 38px;
+  height: 38px;
+}
+
+.thumb-svg .stroke-main {
+  stroke: var(--inactive);
+  transition: stroke 0.15s;
+}
+
+.thumb-svg .fill-main {
+  fill: var(--inactive);
+  transition: fill 0.15s;
+}
+
+.item--on .thumb-svg .stroke-main {
+  stroke: var(--accent);
+}
+
+.item--on .thumb-svg .fill-main {
+  fill: var(--accent);
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.muscle {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.state {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--inactive);
+}
+
+.state--on {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .thumb-svg .stroke-main,
+  .thumb-svg .fill-main {
+    transition: none;
+  }
+}
