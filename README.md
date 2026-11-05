@@ -8,7 +8,8 @@ Built with React and Vite, installable to a phone home screen as a PWA.
 
 ## Features
 
-- **Exercise list** — 16 exercises, each showing its name, primary muscle group, and a thumbnail.
+- **Exercise list** — 16 exercises, each showing its name, primary muscle group, a
+  one-line description of how the move is performed, and a thumbnail.
 - **Tap to toggle** — the whole row is a button; active rows turn green and the header shows how many are selected (`6 of 16 active`).
 - **Offline SVG thumbnails** — every picture is an inline SVG stick figure drawn from pose data, so there are no image files, no external requests, and nothing to load on a slow connection.
 - **Persistence** — your selection is saved to `localStorage` and restored next time you open the app.
@@ -64,6 +65,7 @@ Each entry in `src/exercises.js` is:
   id: "squat",          // stable key, used for persistence
   name: "Barbell Squat",
   muscle: "Legs",
+  description: "Back squat: brace, sit the hips down and back, ...",
   pose: {
     head: [32, 13],                        // x, y of the head dot
     body: [[[32, 21], [32, 37]], ...],     // polylines: torso, arms, legs

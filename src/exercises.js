@@ -5,6 +5,7 @@ export const EXERCISES = [
     id: "squat",
     name: "Barbell Squat",
     muscle: "Legs",
+    description: "Back squat: brace, sit the hips down and back, then drive up through the mid-foot.",
     pose: {
       head: [32, 13],
       body: [
@@ -22,6 +23,7 @@ export const EXERCISES = [
     id: "bench-press",
     name: "Bench Press",
     muscle: "Chest",
+    description: "Lie on a flat bench, lower the bar to your chest, then press it straight back up.",
     pose: {
       head: [12, 38],
       body: [
@@ -38,6 +40,7 @@ export const EXERCISES = [
     id: "deadlift",
     name: "Deadlift",
     muscle: "Back",
+    description: "Lift the bar from the floor by extending hips and knees with a flat back.",
     pose: {
       head: [24, 20],
       body: [
@@ -54,6 +57,7 @@ export const EXERCISES = [
     id: "pull-up",
     name: "Pull-up",
     muscle: "Back",
+    description: "Hang from the bar and pull your chest up until your chin clears it.",
     pose: {
       head: [32, 24],
       body: [
@@ -71,6 +75,7 @@ export const EXERCISES = [
     id: "shoulder-press",
     name: "Shoulder Press",
     muscle: "Shoulders",
+    description: "Press a bar or dumbbells from shoulder height to lockout overhead.",
     pose: {
       head: [32, 22],
       body: [
@@ -88,6 +93,7 @@ export const EXERCISES = [
     id: "bicep-curl",
     name: "Bicep Curl",
     muscle: "Arms",
+    description: "Curl dumbbells up to shoulder height with the elbows pinned to your sides.",
     pose: {
       head: [32, 14],
       body: [
@@ -104,6 +110,7 @@ export const EXERCISES = [
     id: "lateral-raise",
     name: "Lateral Raise",
     muscle: "Shoulders",
+    description: "Raise light dumbbells out to the sides with a soft elbow bend, then lower slowly.",
     pose: {
       head: [32, 15],
       body: [
@@ -120,6 +127,7 @@ export const EXERCISES = [
     id: "triceps-pushdown",
     name: "Triceps Pushdown",
     muscle: "Arms",
+    description: "Push a cable bar down to full elbow extension while the upper arms stay still.",
     pose: {
       head: [30, 20],
       body: [
@@ -137,6 +145,7 @@ export const EXERCISES = [
     id: "lat-pulldown",
     name: "Lat Pulldown",
     muscle: "Back",
+    description: "Pull a wide-grip bar down to your upper chest, driving the elbows past your ribs.",
     pose: {
       head: [30, 24],
       body: [
@@ -154,6 +163,7 @@ export const EXERCISES = [
     id: "seated-row",
     name: "Seated Row",
     muscle: "Back",
+    description: "Row a low cable to your waist with the chest up and the back straight.",
     pose: {
       head: [20, 28],
       body: [
@@ -170,6 +180,7 @@ export const EXERCISES = [
     id: "lunge",
     name: "Lunge",
     muscle: "Legs",
+    description: "Step forward and drop the back knee toward the floor, then push back up.",
     pose: {
       head: [32, 13],
       body: [
@@ -186,6 +197,7 @@ export const EXERCISES = [
     id: "leg-press",
     name: "Leg Press",
     muscle: "Legs",
+    description: "Push a loaded platform away from your feet until the legs are nearly straight.",
     pose: {
       head: [12, 46],
       body: [
@@ -201,6 +213,7 @@ export const EXERCISES = [
     id: "calf-raise",
     name: "Calf Raise",
     muscle: "Legs",
+    description: "Rise onto your toes under load, pause, then lower for a full stretch.",
     pose: {
       head: [32, 12],
       body: [
@@ -217,6 +230,7 @@ export const EXERCISES = [
     id: "plank",
     name: "Plank",
     muscle: "Core",
+    description: "Hold your body in one straight line on the forearms and toes, glutes braced.",
     pose: {
       head: [12, 32],
       body: [
@@ -232,6 +246,7 @@ export const EXERCISES = [
     id: "crunch",
     name: "Crunch",
     muscle: "Core",
+    description: "Curl the shoulder blades off the floor by contracting the abs, not the neck.",
     pose: {
       head: [16, 30],
       body: [
@@ -247,6 +262,7 @@ export const EXERCISES = [
     id: "hip-bridge",
     name: "Hip Bridge",
     muscle: "Glutes",
+    description: "Drive your hips up from the floor until knees, hips and shoulders line up.",
     pose: {
       head: [10, 46],
       body: [

@@ -65,6 +65,7 @@ export default function App() {
                 <span className="meta">
                   <span className="name">{ex.name}</span>
                   <span className="muscle">{ex.muscle}</span>
+                  <span className="desc">{ex.description}</span>
                 </span>
                 <span className={`state${isActive ? " state--on" : ""}`}>
                   {isActive ? "Active" : "Inactive"}
