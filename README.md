@@ -15,6 +15,7 @@ Built with React and Vite, installable to a phone home screen as a PWA.
   and a day you have not picked anything for shows an empty state instead of
   inheriting yesterday's choices.
 - **Saved list panel** — the exercises chosen for the selected day appear as chips at the top; tapping a chip removes it from that day. Rows in the full list are buttons with `aria-pressed`, and the header counts them (`4 saved for this day`).
+- **Installable** — the header shows an **Install** button that triggers the browser's native PWA prompt; when the app is already running as an installed standalone app it shows an **Installed** label instead. Browsers that never offer a prompt (Safari on iOS) get a one-line "add to home screen" hint rather than a dead button.
 - **Offline SVG thumbnails** — every picture is an inline SVG stick figure drawn from pose data, so there are no image files, no external requests, and nothing to load on a slow connection.
 - **Persistence** — the plan for every day is stored in `localStorage` under one date-keyed record and restored when you reopen the app.
 - **Mobile-ready** — dark theme, `viewport-fit=cover` with safe-area insets, 52px tap targets, no tap flash, and reduced-motion support.
@@ -44,6 +45,7 @@ to the same Wi-Fi to test it for real.
 ```bash
 npm run build     # production bundle in dist/
 npm run preview   # serve the built bundle locally
+npm run icons     # re-render the PNG icons after editing the icon geometry
 ```
 
 ## Project structure
@@ -51,14 +53,20 @@ npm run preview   # serve the built bundle locally
 ```
 index.html                   app shell, viewport + PWA meta tags
 vite.config.js               dev server (host: true so phones can reach it)
-public/manifest.webmanifest  name, theme colour, standalone display
+public/manifest.webmanifest  name, theme colour, standalone display, icons
+public/icon.svg              vector app icon
+public/icons/icon-192.png    raster icons for install criteria
+public/icons/icon-512.png
 src/
   main.jsx                   React root
   App.jsx                    day navigation, saved list, toggle logic
   ExerciseIcon.jsx           renders a pose as SVG
   exercises.js               exercise data + pose definitions
+  install.js                 beforeinstallprompt capture and install state
   db.js                      date keys, reading and writing the stored plans
   styles.css                 mobile layout and theme
+scripts/
+  make-icons.mjs             renders public/icons/*.png from the icon geometry
 ```
 
 ## Data model
@@ -100,10 +108,15 @@ rewrites the current day's array. A day with no entry — or an empty array —
 renders the empty list, which is why a new day starts blank rather than copying
 the previous one. Corrupt or missing storage falls back to `{}`.
 
+Install state is not stored: `src/install.js` captures
+`beforeinstallprompt` at module load, and `App.jsx` reads it through
+`useSyncExternalStore`, so the header re-renders when the prompt arrives, when
+`appinstalled` fires, or when the `display-mode: standalone` media query flips.
+
 ## Roadmap ideas
 
 - Filter between all / saved / not saved
 - A week strip instead of `‹` / `›` so several days are visible at once
 - Set, rep, and weight fields per exercise
 - Sync the day plans to a real backend so history survives a cleared browser
-- App icons for a fully installable PWA (the manifest currently ships without them)
+- A maskable icon variant, with the figure inside the 80% safe zone

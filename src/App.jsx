@@ -1,15 +1,37 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import { EXERCISES } from "./exercises.js";
 import ExerciseIcon from "./ExerciseIcon.jsx";
+import { install, installState, onInstallChange } from "./install.js";
 import { formatDayLabel, readPlans, shiftDay, todayKey, writePlans } from "./db.js";
 
 export default function App() {
   const [plans, setPlans] = useState(readPlans);
   const [day, setDay] = useState(todayKey);
+  const [showInstallHint, setShowInstallHint] = useState(false);
+  const installStatus = useSyncExternalStore(onInstallChange, installState);
 
   useEffect(() => {
     writePlans(plans);
   }, [plans]);
+
+  const installControl =
+    installStatus === "installed" ? (
+      <p className="badge">Installed</p>
+    ) : (
+      <button
+        type="button"
+        className="install"
+        onClick={() => {
+          if (installStatus === "available") {
+            install();
+          } else {
+            setShowInstallHint(true);
+          }
+        }}
+      >
+        Install
+      </button>
+    );
 
   const chosen = useMemo(
     () => new Set(Array.isArray(plans[day]) ? plans[day] : []),
@@ -35,7 +57,16 @@ export default function App() {
   return (
     <div className="app">
       <header className="header">
-        <p className="brand">gymapp</p>
+        <div className="topbar">
+          <p className="brand">gymapp</p>
+          {installControl}
+        </div>
+        {showInstallHint && installStatus !== "installed" && (
+          <p className="hint">
+            Your browser has not offered an install prompt yet. Use its menu and
+            choose "Add to Home screen" / "Install app".
+          </p>
+        )}
         <div className="daybar">
           <button
             type="button"
