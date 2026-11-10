@@ -6,6 +6,9 @@ fresh day always starts empty.
 
 Built with React and Vite, installable to a phone home screen as a PWA.
 
+Live: https://gymappvite.netlify.app/
+Source: https://github.com/mohsen12999/gymapp
+
 ## Features
 
 - **Exercise list** — 16 exercises, each showing its name, primary muscle group, a
