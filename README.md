@@ -16,8 +16,12 @@ Source: https://github.com/mohsen12999/gymapp
 - **Search & filter** — a search box matches the name, muscle group and
   description, case-insensitively, and a row of muscle chips narrows the list to
   one group. Both combine (Back + "pull" leaves Pull-up and Lat Pulldown), a
-  counter shows `n of 16 shown`, and **Clear** resets to the full list. The saved
-  list for the day is never filtered — it is read from the full exercise set.
+  counter shows `n of 16 shown`, and **Clear** resets to the full list. A
+  **Hide / Search** button in the "All exercises" bar collapses the whole search
+  area; while it is collapsed but still filtered, a one-line summary keeps the
+  count, the active term and muscle, and a Clear button, so rows never look like
+  they disappeared. The saved list for the day is never filtered — it is read
+  from the full exercise set.
 - **Day by day** — the header shows the selected day with `‹` / `›` buttons to step
   through dates and a "Back to today" shortcut. Every day has its own saved list,
   and a day you have not picked anything for shows an empty state instead of
@@ -119,8 +123,9 @@ rewrites the current day's array. A day with no entry — or an empty array —
 renders the empty list, which is why a new day starts blank rather than copying
 the previous one. Corrupt or missing storage falls back to `{}`.
 
-The search text and the selected muscle are view state in `App.jsx` only: they
-reset on reload and never reach storage, so filtering cannot hide a saved plan.
+The search text, the selected muscle and whether the search area is open are view
+state in `App.jsx` only: they reset on reload and never reach storage, so
+filtering cannot hide a saved plan.
 
 Install state is not stored: `src/install.js` captures
 `beforeinstallprompt` at module load, and `App.jsx` reads it through

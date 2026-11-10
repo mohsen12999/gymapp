@@ -11,6 +11,7 @@ export default function App() {
   const [day, setDay] = useState(todayKey);
   const [query, setQuery] = useState("");
   const [muscle, setMuscle] = useState("All");
+  const [showTools, setShowTools] = useState(false);
   const [showInstallHint, setShowInstallHint] = useState(false);
   const installStatus = useSyncExternalStore(onInstallChange, installState);
 
@@ -54,6 +55,18 @@ export default function App() {
   }, [query, muscle]);
 
   const isFiltered = query.trim() !== "" || muscle !== "All";
+
+  const clearFilters = () => {
+    setQuery("");
+    setMuscle("All");
+  };
+
+  const filterSummary = [
+    query.trim() ? `"${query.trim()}"` : null,
+    muscle !== "All" ? muscle : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   const writeDay = (ids) => setPlans((prev) => ({ ...prev, [day]: ids }));
 
@@ -139,50 +152,67 @@ export default function App() {
         )}
       </section>
 
-      <h2 className="section">All exercises</h2>
-
-      <div className="tools">
-        <input
-          className="search"
-          type="search"
-          placeholder="Search name, muscle or how to do it"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          aria-label="Search exercises"
-        />
-        <div className="filters">
-          {MUSCLES.map((name) => (
-            <button
-              key={name}
-              type="button"
-              className={`filter${name === muscle ? " filter--on" : ""}`}
-              aria-pressed={name === muscle}
-              onClick={() => setMuscle(name)}
-            >
-              {name}
-            </button>
-          ))}
-        </div>
-        <p className="count">
-          <span>
-            {visible.length} of {EXERCISES.length} shown
-          </span>
-          {isFiltered && (
-            <button
-              type="button"
-              className="clear"
-              onClick={() => {
-                setQuery("");
-                setMuscle("All");
-              }}
-            >
-              Clear
-            </button>
-          )}
-        </p>
+      <div className="sectionbar">
+        <h2 className="section">All exercises</h2>
+        <button
+          type="button"
+          className="toggle"
+          aria-expanded={showTools}
+          aria-controls="exercise-tools"
+          onClick={() => setShowTools((prev) => !prev)}
+        >
+          {showTools ? "Hide" : "Search"}
+        </button>
       </div>
 
-      {visible.length === 0 && (
+      {showTools ? (
+        <div className="tools" id="exercise-tools">
+          <input
+            className="search"
+            type="search"
+            placeholder="Search name, muscle or how to do it"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            aria-label="Search exercises"
+          />
+          <div className="filters">
+            {MUSCLES.map((name) => (
+              <button
+                key={name}
+                type="button"
+                className={`filter${name === muscle ? " filter--on" : ""}`}
+                aria-pressed={name === muscle}
+                onClick={() => setMuscle(name)}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+          <p className="count">
+            <span>
+              {visible.length} of {EXERCISES.length} shown
+            </span>
+            {isFiltered && (
+              <button type="button" className="clear" onClick={clearFilters}>
+                Clear
+              </button>
+            )}
+          </p>
+        </div>
+      ) : (
+        isFiltered && (
+          <p className="count count--narrow" id="exercise-tools">
+            <span>
+              {visible.length} of {EXERCISES.length} shown · {filterSummary}
+            </span>
+            <button type="button" className="clear" onClick={clearFilters}>
+              Clear
+            </button>
+          </p>
+        )
+      )}
+
+      {showTools && visible.length === 0 && (
         <p className="empty">Nothing matches. Try fewer letters or another muscle.</p>
       )}
       <ul className="list">
