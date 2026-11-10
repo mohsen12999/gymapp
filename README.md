@@ -1,8 +1,8 @@
 # gymapp
 
 A mobile-first web app that lists gym exercises with a small picture next to each
-name. Tap any row to mark the exercise **active** or **inactive** — useful for
-picking the moves you want in today's session.
+name. Pick the moves you want for a given day; each day keeps its own list, and a
+fresh day always starts empty.
 
 Built with React and Vite, installable to a phone home screen as a PWA.
 
@@ -10,11 +10,15 @@ Built with React and Vite, installable to a phone home screen as a PWA.
 
 - **Exercise list** — 16 exercises, each showing its name, primary muscle group, a
   one-line description of how the move is performed, and a thumbnail.
-- **Tap to toggle** — the whole row is a button; active rows turn green and the header shows how many are selected (`6 of 16 active`).
+- **Day by day** — the header shows the selected day with `‹` / `›` buttons to step
+  through dates and a "Back to today" shortcut. Every day has its own saved list,
+  and a day you have not picked anything for shows an empty state instead of
+  inheriting yesterday's choices.
+- **Saved list panel** — the exercises chosen for the selected day appear as chips at the top; tapping a chip removes it from that day. Rows in the full list are buttons with `aria-pressed`, and the header counts them (`4 saved for this day`).
 - **Offline SVG thumbnails** — every picture is an inline SVG stick figure drawn from pose data, so there are no image files, no external requests, and nothing to load on a slow connection.
-- **Persistence** — your selection is saved to `localStorage` and restored next time you open the app.
+- **Persistence** — the plan for every day is stored in `localStorage` under one date-keyed record and restored when you reopen the app.
 - **Mobile-ready** — dark theme, `viewport-fit=cover` with safe-area insets, 52px tap targets, no tap flash, and reduced-motion support.
-- **Accessible** — rows expose `aria-pressed`, so screen readers announce the active state.
+- **Accessible** — rows expose `aria-pressed`, chips announce "Remove … from this day", and the day buttons have labels.
 
 ## Tech stack
 
@@ -50,9 +54,10 @@ vite.config.js               dev server (host: true so phones can reach it)
 public/manifest.webmanifest  name, theme colour, standalone display
 src/
   main.jsx                   React root
-  App.jsx                    list, toggle logic, active count
+  App.jsx                    day navigation, saved list, toggle logic
   ExerciseIcon.jsx           renders a pose as SVG
   exercises.js               exercise data + pose definitions
+  db.js                      date keys, reading and writing the stored plans
   styles.css                 mobile layout and theme
 ```
 
@@ -79,13 +84,26 @@ unique `id` and a pose — no other file needs changing.
 
 ## State
 
-Active ids live in one `Set` in `App.jsx`, written back to `localStorage` under
-the key `gym.active-exercises` on every change. On first run (no stored value)
-three exercises start active as a demo.
+`src/db.js` keeps the whole history in one `localStorage` value, `gym.day-plans`,
+keyed by the local date:
+
+```json
+{
+  "2026-11-10": ["squat", "bench-press"],
+  "2026-11-11": []
+}
+```
+
+`App.jsx` holds that map plus the selected day, and derives the day's `Set` of
+chosen ids from it, so switching days never re-reads storage and a tap only
+rewrites the current day's array. A day with no entry — or an empty array —
+renders the empty list, which is why a new day starts blank rather than copying
+the previous one. Corrupt or missing storage falls back to `{}`.
 
 ## Roadmap ideas
 
-- Filter between all / active / inactive
-- Group by muscle or build a session from the active set
+- Filter between all / saved / not saved
+- A week strip instead of `‹` / `›` so several days are visible at once
 - Set, rep, and weight fields per exercise
+- Sync the day plans to a real backend so history survives a cleared browser
 - App icons for a fully installable PWA (the manifest currently ships without them)
