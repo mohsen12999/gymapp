@@ -446,6 +446,16 @@ body {
   color: var(--muted);
 }
 
+.site {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site:active {
+  text-decoration: underline;
+}
+
 .repo {
   display: inline-flex;
   align-items: center;

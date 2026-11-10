@@ -8,6 +8,8 @@ const MUSCLES = ["All", ...new Set(EXERCISES.map((ex) => ex.muscle))];
 
 const REPO_URL = "https://github.com/mohsen12999/gymapp";
 
+const SITE_URL = "https://gymappvite.netlify.app/";
+
 export default function App() {
   const [plans, setPlans] = useState(readPlans);
   const [day, setDay] = useState(todayKey);
@@ -88,7 +90,7 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="topbar">
-          <p className="brand">Gym App</p>
+          <p className="brand" target="_self">Gym App</p>
           {installControl}
         </div>
         {showInstallHint && installStatus !== "installed" && (
@@ -247,7 +249,10 @@ export default function App() {
 
       <footer className="footer">
         <span>
-          {APP_NAME} &middot; v{APP_VERSION}
+          <a className="site" href={SITE_URL} target="_blank" rel="noopener noreferrer">
+            {APP_NAME}
+          </a>{" "}
+          &middot; v{APP_VERSION}
         </span>
         <a className="repo" href={REPO_URL} target="_blank" rel="noopener noreferrer">
           <svg viewBox="0 0 16 16" className="repo-icon" aria-hidden="true" focusable="false">
