@@ -54,7 +54,7 @@ npm run icons     # re-render the PNG icons after editing the icon geometry
 
 ```
 index.html                   app shell, viewport + PWA meta tags
-vite.config.js               dev server (host: true so phones can reach it)
+vite.config.js               dev server (host: true so phones can reach it), injects the footer name/version from package.json
 public/manifest.webmanifest  name, theme colour, standalone display, icons
 public/icon.svg              vector app icon
 public/icons/icon-192.png    raster icons for install criteria

@@ -58,7 +58,7 @@ export default function App() {
     <div className="app">
       <header className="header">
         <div className="topbar">
-          <p className="brand">gymapp</p>
+          <p className="brand">Gym App</p>
           {installControl}
         </div>
         {showInstallHint && installStatus !== "installed" && (
@@ -152,6 +152,10 @@ export default function App() {
           );
         })}
       </ul>
+
+      <footer className="footer">
+        {APP_NAME} &middot; v{APP_VERSION}
+      </footer>
     </div>
   );
 }

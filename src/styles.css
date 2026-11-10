@@ -325,6 +325,14 @@ body {
   color: var(--accent);
 }
 
+.footer {
+  margin: 22px 0 0;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .item,
   .thumb-svg .stroke-main,
