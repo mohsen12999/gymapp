@@ -8,3 +8,8 @@ createRoot(document.getElementById("root")).render(
     <App />
   </React.StrictMode>
 );
+
+// Dev serves modules that must stay uncached for HMR, so only ship the worker in builds.
+if (import.meta.env.PROD && "serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js");
+}

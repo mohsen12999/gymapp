@@ -17,6 +17,7 @@ Built with React and Vite, installable to a phone home screen as a PWA.
 - **Saved list panel** — the exercises chosen for the selected day appear as chips at the top; tapping a chip removes it from that day. Rows in the full list are buttons with `aria-pressed`, and the header counts them (`4 saved for this day`).
 - **Installable** — the header shows an **Install** button that triggers the browser's native PWA prompt; when the app is already running as an installed standalone app it shows an **Installed** label instead. Browsers that never offer a prompt (Safari on iOS) get a one-line "add to home screen" hint rather than a dead button.
 - **Offline SVG thumbnails** — every picture is an inline SVG stick figure drawn from pose data, so there are no image files, no external requests, and nothing to load on a slow connection.
+- **Works with no network** — `public/sw.js` caches the shell, script, and styles on first visit, so a built or previewed copy opens and stays tappable with the server stopped. Navigations go to the network first and fall back to the cached shell; assets are served from cache. The worker is registered only in production builds, so `npm run dev` keeps HMR uncached.
 - **Persistence** — the plan for every day is stored in `localStorage` under one date-keyed record and restored when you reopen the app.
 - **Mobile-ready** — dark theme, `viewport-fit=cover` with safe-area insets, 52px tap targets, no tap flash, and reduced-motion support.
 - **Accessible** — rows expose `aria-pressed`, chips announce "Remove … from this day", and the day buttons have labels.
@@ -31,6 +32,7 @@ Built with React and Vite, installable to a phone home screen as a PWA.
 | Styling | Plain CSS with custom properties |
 | Graphics | Inline SVG |
 | Storage | `localStorage` |
+| Offline | Service worker, no build plugin |
 
 ## Getting started
 
@@ -57,6 +59,7 @@ public/manifest.webmanifest  name, theme colour, standalone display, icons
 public/icon.svg              vector app icon
 public/icons/icon-192.png    raster icons for install criteria
 public/icons/icon-512.png
+public/sw.js                 offline caching worker (registered in builds only)
 src/
   main.jsx                   React root
   App.jsx                    day navigation, saved list, toggle logic
