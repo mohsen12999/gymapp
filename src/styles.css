@@ -436,10 +436,37 @@ body {
 
 .footer {
   margin: 22px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
   text-align: center;
   font-size: 12px;
   letter-spacing: 0.02em;
   color: var(--muted);
+}
+
+.repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.repo:active {
+  background: var(--card-on);
+}
+
+.repo-icon {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
 }
 
 @media (prefers-reduced-motion: reduce) {

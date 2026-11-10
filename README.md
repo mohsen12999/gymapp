@@ -31,6 +31,7 @@ Source: https://github.com/mohsen12999/gymapp
 - **Offline SVG thumbnails** — every picture is an inline SVG stick figure drawn from pose data, so there are no image files, no external requests, and nothing to load on a slow connection.
 - **Works with no network** — `public/sw.js` caches the shell, script, and styles on first visit, so a built or previewed copy opens and stays tappable with the server stopped. Navigations go to the network first and fall back to the cached shell; assets are served from cache. The worker is registered only in production builds, so `npm run dev` keeps HMR uncached.
 - **Persistence** — the plan for every day is stored in `localStorage` under one date-keyed record and restored when you reopen the app.
+- **Footer** — the app name and version, then a GitHub mark that links to this repository. The icon is inline SVG with `currentColor`, so it inherits the accent colour; the link opens in a new tab with `rel="noopener noreferrer"`.
 - **Mobile-ready** — dark theme, `viewport-fit=cover` with safe-area insets, 52px tap targets, no tap flash, and reduced-motion support.
 - **Accessible** — rows expose `aria-pressed`, chips announce "Remove … from this day", and the day buttons have labels.
 
